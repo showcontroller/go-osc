@@ -40,6 +40,7 @@ func main() {
 			panic(err)
 		}
 		log.Printf("* Controller #1 | %-10s | bye!\n", "Disconnect")
+		os.Exit(3)
 	}()
 
 	disp := osc.NewStandardDispatcher()
@@ -59,62 +60,55 @@ func main() {
 		return nil
 	})
 
-	// Register callback for "CrossPress" event
-	controller.On(gods4.EventCrossPress, func(data interface{}) error {
-		log.Printf("* Controller #1 | %-10s | state: press\n", "Cross")
-
-		fmt.Println("sent osc message to qlab")
-		msg := osc.NewMessage("/cue/l2/go")
-		client.Send(msg)
-
-		return nil
-	})
-
-	controller.On(gods4.EventR3Press, func(data interface{}) error {
-		log.Printf("* Controller #1 | %-10s | state: press\n", "R3")
-
-		fmt.Println("sent osc message to qlab to PANIC")
-		msg := osc.NewMessage("/panic")
-		client.Send(msg)
-
-		return nil
-	})
-
-	controller.On(gods4.EventCirclePress, func(data interface{}) error {
-		log.Printf("* Controller #1 | %-10s | state: press\n", "Circle")
-
-		fmt.Println("sent osc message to qlab to pause")
-		msg := osc.NewMessage("/cue/selected/stop")
-		client.Send(msg)
-
-		return nil
-	})
-
-	controller.On(gods4.EventTrianglePress, func(data interface{}) error {
-		log.Printf("* Controller #1 | %-10s | state: press\n", "Triangle")
-
-		fmt.Println("sent osc message to qlab to pause")
-		msg := osc.NewMessage("/pause")
-		client.Send(msg)
-
-		return nil
-	})
-
-	controller.On(gods4.EventSquarePress, func(data interface{}) error {
-		log.Printf("* Controller #1 | %-10s | state: press\n", "Square")
-
-		fmt.Println("sent osc message to qlab to resume")
-		msg := osc.NewMessage("/resume")
-		client.Send(msg)
-
-		return nil
-	})
-
 	controller.On(gods4.EventDPadDownPress, func(data interface{}) error {
 		log.Printf("* Controller #1 | %-10s | state: press\n", "DPadDown")
+		log.Println("sent /dpad_down/press")
+		msg := osc.NewMessage("/dpad_down/press")
+		client.Send(msg)
 
-		fmt.Println("sent osc message to qlab")
-		msg := osc.NewMessage("/playhead/next")
+		return nil
+	})
+
+	controller.On(gods4.EventDPadDownRelease, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "DPadDown")
+		log.Println("sent /dpad_down/release")
+		msg := osc.NewMessage("/dpad_down/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventDPadLeftPress, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "DPadLeft")
+		log.Println("sent /dpad_left/press")
+		msg := osc.NewMessage("/dpad_left/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventDPadLeftRelease, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "DPadLeft")
+		log.Println("sent /dpad_left/release")
+		msg := osc.NewMessage("/dpad_left/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventDPadRightPress, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "DPadLeft")
+		log.Println("sent /dpad_right/press")
+		msg := osc.NewMessage("/dpad_right/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventDPadRightRelease, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "DPadRight")
+		log.Println("sent /dpad_right/release")
+		msg := osc.NewMessage("/dpad_right/release")
 		client.Send(msg)
 
 		return nil
@@ -122,28 +116,210 @@ func main() {
 
 	controller.On(gods4.EventDPadUpPress, func(data interface{}) error {
 		log.Printf("* Controller #1 | %-10s | state: press\n", "DPadUp")
-
-		fmt.Println("sent osc message to qlab")
-		msg := osc.NewMessage("/playhead/previous")
+		log.Println("sent /dpad_up/press")
+		msg := osc.NewMessage("/dpad_up/press")
 		client.Send(msg)
 
 		return nil
 	})
 
-	// Register callback for "CrossRelease" event
+	controller.On(gods4.EventDPadUpRelease, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "DPadUp")
+		log.Println("sent /dpad_up/release")
+		msg := osc.NewMessage("/dpad_up/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventCrossPress, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "Cross")
+		log.Println("sent /cross/press")
+		msg := osc.NewMessage("/cross/press")
+		client.Send(msg)
+
+		return nil
+	})
+
 	controller.On(gods4.EventCrossRelease, func(data interface{}) error {
 		log.Printf("* Controller #1 | %-10s | state: release\n", "Cross")
+		log.Println("sent /cross/release")
+		msg := osc.NewMessage("/cross/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventCirclePress, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "Circle")
+		log.Println("sent /circle/press")
+		msg := osc.NewMessage("/circle/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventCircleRelease, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "Circle")
+		log.Println("sent /circle/release")
+		msg := osc.NewMessage("/circle/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventSquarePress, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "Square")
+		log.Println("sent /square/press")
+		msg := osc.NewMessage("/square/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventSquareRelease, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "Square")
+		log.Println("sent /square/release")
+		msg := osc.NewMessage("/square/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventTrianglePress, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "Triangle")
+		log.Println("sent /triangle/press")
+		msg := osc.NewMessage("/triangle/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventTriangleRelease, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "Triangle")
+		log.Println("sent /triangle/release")
+		msg := osc.NewMessage("/triangle/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventL1Press, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "L1")
+		log.Println("sent /l1/press")
+		msg := osc.NewMessage("/l1/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventL1Release, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "L1")
+		log.Println("sent /l1/release")
+		msg := osc.NewMessage("/l1/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventL2Press, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "L2")
+		log.Println("sent /l2/press")
+		msg := osc.NewMessage("/l2/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventL2Release, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "L2")
+		log.Println("sent /l2/release")
+		msg := osc.NewMessage("/l2/release")
+		client.Send(msg)
+
+		return nil
+	})
+	controller.On(gods4.EventL3Press, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "L3")
+		log.Println("sent /l3/press")
+		msg := osc.NewMessage("/l3/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventL3Release, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "L3")
+		log.Println("sent /l3/release")
+		msg := osc.NewMessage("/l3/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventR1Press, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "R1")
+		log.Println("sent /r1/press")
+		msg := osc.NewMessage("/r1/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventR1Release, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "R1")
+		log.Println("sent /r1/release")
+		msg := osc.NewMessage("/r1/release")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventR2Press, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "R2")
+		log.Println("sent /r2/press")
+		msg := osc.NewMessage("/r2/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventR2Release, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "R2")
+		log.Println("sent /r2/release")
+		msg := osc.NewMessage("/r2/release")
+		client.Send(msg)
+
+		return nil
+	})
+	controller.On(gods4.EventR3Press, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: press\n", "R3")
+		log.Println("sent /r3/press")
+		msg := osc.NewMessage("/r3/press")
+		client.Send(msg)
+
+		return nil
+	})
+
+	controller.On(gods4.EventR3Release, func(data interface{}) error {
+		log.Printf("* Controller #1 | %-10s | state: release\n", "R3")
+		log.Println("sent /r3/release")
+		msg := osc.NewMessage("/r3/release")
+		client.Send(msg)
 
 		return nil
 	})
 
 	// Register callback for "RightStickMove" event
-	controller.On(gods4.EventRightStickMove, func(data interface{}) error {
-		stick := data.(gods4.Stick)
-		log.Printf("* Controller #1 | %-10s | x: %v, y: %v\n", "RightStick", stick.X, stick.Y)
-
-		return nil
-	})
+	//controller.On(gods4.EventRightStickMove, func(data interface{}) error {
+	//	stick := data.(gods4.Stick)
+	//	log.Printf("* Controller #1 | %-10s | x: %v, y: %v\n", "RightStick", stick.X, stick.Y)
+	//	msg := osc.NewMessage("/rightstick/")
+	//	msg.Append(int32(stick.X))
+	//	msg.Append(int32(stick.Y))
+	//	client.Send(msg)
+	//	return nil
+	//})
 
 	// Enable left and right rumble motors
 	//err = controller.Rumble(rumble.Both())

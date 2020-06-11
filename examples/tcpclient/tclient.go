@@ -1,15 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"github.com/eiannone/keyboard"
+	"github.com/showcontroller/go-osc/osc"
 	"log"
-
 	"time"
 )
-import "fmt"
-
-//import "github.com/Lobaro/slip"
-import "github.com/showcontroller/go-osc/osc"
 
 func main() {
 	sd := osc.NewStandardDispatcher()

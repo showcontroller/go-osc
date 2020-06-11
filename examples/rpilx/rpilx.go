@@ -18,7 +18,8 @@ func main() {
 		os.Exit(1)
 	}
 	// unmap gpio when done
-	defer rpio.Close()
+
+	defer log.Println(rpio.Close())
 	// set pins to output mode
 	pRed.Output()
 	pYellow.Output()
@@ -83,6 +84,6 @@ func main() {
 	}
 
 	s := osc.TCPServer{Addr: addr, Dispatch: sd}
-	s.ListenServe()
+	log.Println(s.ListenServe())
 
 }

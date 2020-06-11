@@ -54,17 +54,17 @@ func (ts *TCPServer) HandleClient(conn net.Conn) {
 
 	log.Println("new connection from", conn.RemoteAddr())
 
-	var r = slip.NewReader(conn)
+	r := slip.NewReader(conn)
 	for {
-
 		packet, _, err := r.ReadPacket()
+
 		if err != nil {
 			log.Println("error reading packet. stopping:", conn.RemoteAddr(), err)
 			return
 		}
 		//checkError(err)
 
-		log.Println("new packet", string(packet))
+		//log.Println("new packet", string(packet))
 		//checkError(err)
 		p, err := ParsePacket(string(packet))
 		//checkError(err)
@@ -106,7 +106,7 @@ func (tc *TCPClient) Send(pkt Packet) {
 func (tc *TCPClient) Connect() {
 	log.Println("connecting to", tc.addr)
 	for {
-		c, err := net.Dial("tcp", tc.addr)
+		c, err := net.DialTimeout("tcp", tc.addr, tc.ReconnectWait)
 		if err != nil {
 			log.Println("error connecting.", err)
 			log.Println("trying again after", tc.ReconnectWait)
@@ -136,7 +136,7 @@ func (tc *TCPClient) Listen() {
 		}
 		//checkError(err)
 
-		log.Println("new packet", string(packet))
+		//log.Println("new packet", string(packet))
 		//checkError(err)
 		p, err := ParsePacket(string(packet))
 		//checkError(err)
